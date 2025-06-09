@@ -28,14 +28,11 @@ public class ItemCarrinho implements GerenciavelNoCarrinho {
     }
     @Override
     public void adicionarQuantidade(int quantidade){
-
+        this.quantidade += quantidade;
     }
     @Override
     public void removerQuantidade(int quantidade){
-
+        this.quantidade -= quantidade;
     }
     
-
-    
-
 }

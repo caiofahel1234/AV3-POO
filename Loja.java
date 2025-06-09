@@ -13,7 +13,6 @@ public class Loja {
 		catalogo.add(new Bebidas( 4, "Vinho branco", "Vinho branco suave", 12.0, true));
     }
 
-
     public String mostrarCatalogo(){
         StringBuilder sb = new StringBuilder();
         sb.append("Catalogos de produtos\n");
@@ -23,5 +22,9 @@ public class Loja {
             contador++;
         }
         return sb.toString();
+    }
+
+    public ArrayList<Produtos> getCatalogo(){
+        return catalogo;
     }
 }

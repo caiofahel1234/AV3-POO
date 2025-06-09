@@ -1,19 +1,17 @@
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Pedido {
     private Usuario usuario;
     private ArrayList<ItemCarrinho> carrinho_de_compras;
     private double precoTotal;
-    private LocalDateTime dataHora;
+   
 
 
     public Pedido(Usuario usuario, ArrayList<ItemCarrinho> carrinho_de_compras) {
         this.usuario = usuario;
         this.carrinho_de_compras = carrinho_de_compras;
-        this.dataHora = LocalDateTime.now();
         this.precoTotal = calcularTotal();
     
     }

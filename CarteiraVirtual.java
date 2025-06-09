@@ -35,10 +35,8 @@ public class CarteiraVirtual {
 
     @Override
     public String toString() {
-        return "CarteiraVirtual [saldo = " + saldo + ", formaPagamento = " + formaPagamento.getDescricao() + "]";
+        return "CarteiraVirtual [saldo = " + saldo + " R$" + ", formaPagamento = " + formaPagamento.getDescricao() + "]";
     }
     
-
-
 
 }

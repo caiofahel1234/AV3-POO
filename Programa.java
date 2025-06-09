@@ -3,11 +3,12 @@ import java.util.Scanner;
 public class Programa
 {
 	public static void main(String[] args) {
-		ArrayList<ItemCarrinho> carrinho_de_compras = new ArrayList<>();
 		ArrayList<Produtos> catalogo = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
 
 		Loja loja = new Loja();
+
+		catalogo = loja.getCatalogo();
 	
 
 		System.out.println();
@@ -63,9 +64,41 @@ System.out.println(c.escolherFormaPagamento(entrada));
 System.out.println();
 }else if(opcao == 4){
 	System.out.println(loja.mostrarCatalogo());
+	System.out.print("Escolha o número do produto: ");
+    int escolha = sc.nextInt();
+
+    while (escolha < 1 || escolha > catalogo.size()) {
+        System.out.println("Opção inválida. Tente novamente");
+        escolha = sc.nextInt();
+    }
+
+    Produtos escolhido = catalogo.get(escolha - 1);
+
+	System.out.print("Digite a quantidade de produtos: ");
+	int quantidade = sc.nextInt();
+
+	c.adicionarNoCarrinho(escolhido, quantidade);
+
 	System.out.println();
 }else if(opcao == 5){
 	System.out.println(c.verCarrinho());
+	if(!c.getCarrinho().isEmpty()){
+	System.out.print("Escolha o número do produto: ");
+    int escolha = sc.nextInt();
+
+    while (escolha < 1 || escolha > c.getCarrinho().size()) {
+        System.out.println("Opção inválida. Tente novamente");
+        escolha = sc.nextInt();
+    }
+
+    ItemCarrinho escolhido = c.getCarrinho().get(escolha - 1);
+
+	System.out.print("Digite a quantidade de produtos: ");
+	int quantidade = sc.nextInt();
+
+	c.removerDoCarrinho(escolhido, quantidade);
+	}
+
 	System.out.println();
 }else if(opcao == 6){
 	System.out.println(c.finalizarCompra());
@@ -77,12 +110,14 @@ System.out.println();
 	System.out.println(c.toString());
 	System.out.println();
 }else if(opcao == 9){
-	
+	System.out.println("Saindo....");
 }else{
 	System.out.println("Escolha invalida. Tente outra vez");
 	opcao = sc.nextInt();
 }
 
-  }while(opcao!=0);
+  }while(opcao!=9);
+
+  sc.close();
 }
 }

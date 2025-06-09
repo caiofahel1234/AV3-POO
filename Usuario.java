@@ -4,14 +4,17 @@ public class Usuario {
     private String nome;
     private String email;
     private CarteiraVirtual carteira  = new CarteiraVirtual();
-
-    ArrayList<ItemCarrinho> carrinho_de_compras = new ArrayList<>();
+    private ArrayList<ItemCarrinho> carrinho_de_compras = new ArrayList<>();
 
  
     public Usuario(Integer id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+    }
+
+    public ArrayList<ItemCarrinho> getCarrinho(){
+        return carrinho_de_compras;
     }
 
     public String escolherFormaPagamento(String entrada){
@@ -35,36 +38,77 @@ public class Usuario {
  return "Você escolheu: " + formaEscolhida.getDescricao();
     }
 
-    public void adicionarNoCarrinho(Produtos produto, Integer quantidade){
+
+    public String adicionarNoCarrinho(Produtos produto, Integer quantidade){
         Boolean encontrado = false;
-        for(ItemCarrinho item : carrinho_de_compras){
-           if(item.getProduto().getNome().equals(produto.getNome())){
+
+          if (quantidade == null || quantidade <= 0) {
+        return "Quantidade inválida";
+    }
+
+        for(int i = 0; i<carrinho_de_compras.size(); i++){
+            ItemCarrinho item = carrinho_de_compras.get(i);
+             if(item.getProduto().getNome().equals(produto.getNome())){
             item.adicionarQuantidade(quantidade);;
             encontrado = true;
             break;
            }
         }
-        if(!encontrado){
+
+          if(!encontrado){
           carrinho_de_compras.add(new ItemCarrinho(produto, quantidade));  
         }
+         return "Adicionado com sucesso";
     }
+
+
+    public String removerDoCarrinho(ItemCarrinho item, Integer quantidade){
+
+          if (quantidade == null || quantidade <= 0) {
+        return "Quantidade inválida";
+    }
+        Boolean encontrado = false;
+
+        for(int i = 0; i<carrinho_de_compras.size(); i++){
+            ItemCarrinho itens = carrinho_de_compras.get(i);
+            if(item.getProduto().getNome().equals(itens.getProduto().getNome())){
+                if(quantidade >= itens.getQuantidade()){
+                    carrinho_de_compras.remove(itens);
+            }else{
+                itens.removerQuantidade(quantidade);;
+            }
+            encontrado = true;
+            break;
+           }
+        }
+
+        if(!encontrado){
+            return "Produto não encontrado!";
+        }
+         return "Removido com sucesso";
+    }
+
 
     public String verCarrinho(){
         if(carrinho_de_compras.isEmpty() == true){
             return "Carrinho de compras vazio";
+
         }
         double precoTotal = 0.0;
+        int contador = 1;
         StringBuilder sb = new StringBuilder();
         
         sb.append("Itens no carrinho: \n");
         for(ItemCarrinho item : carrinho_de_compras){
-            sb.append(String.format("%s,%d - R$ %.2f\n", item.getProduto().getNome(), item.getQuantidade(), item.calcularPreco()));
+            sb.append(String.format("%d- %s,%d - R$ %.2f\n", contador, item.getProduto().getNome(), item.getQuantidade(), item.calcularPreco()));
             precoTotal += item.calcularPreco();
+            contador++;
         }
         sb.append(String.format("Total: %.2f", precoTotal));
         return sb.toString();
 
         }
+
 
     public String finalizarCompra(){
             if (carrinho_de_compras.isEmpty()) {
@@ -72,8 +116,8 @@ public class Usuario {
     }
 
     Pedido pedido = new Pedido(this, carrinho_de_compras);
+     carrinho_de_compras.clear();
     return pedido.getResumoPedido();
-
     }
 
     public Integer getId() {
