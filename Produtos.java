@@ -1,24 +1,14 @@
 public abstract class Produtos {
-    private Integer estoque;
     private Integer id;
     private String nome;
     private String descricao;
     private Double preco;
     
-    public Produtos(Integer estoque, Integer id, String nome, String descricao, Double preco) {
-        this.estoque = estoque;
+    public Produtos(Integer id, String nome, String descricao, Double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-    }
-
-    public Integer getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
     }
 
     public Integer getId() {
@@ -55,8 +45,8 @@ public abstract class Produtos {
 
     @Override
     public String toString() {
-        return "Produtos [estoque=" + estoque + ", id=" + id + ", nome=" + nome + ", descricao=" + descricao
-                + ", preco=" + preco + "]";
+        return "Produtos [ id = " + id + ", nome = " + nome + ", descricao = " + descricao
+                + ", preco = " + preco + " R$" + "]";
     }
 
     

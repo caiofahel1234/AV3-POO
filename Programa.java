@@ -3,8 +3,12 @@ import java.util.Scanner;
 public class Programa
 {
 	public static void main(String[] args) {
-		ArrayList<Produtos> carrinho_de_compras = new ArrayList<>();
+		ArrayList<ItemCarrinho> carrinho_de_compras = new ArrayList<>();
+		ArrayList<Produtos> catalogo = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
+
+		Loja loja = new Loja();
+	
 
 		System.out.println();
 		System.out.println("BEM VINDO A LOJA!!!");
@@ -17,7 +21,7 @@ public class Programa
 		System.out.println("Qual o seu email?");
 		String email = sc.nextLine();
 
-Usuario c = new Usuario(id, nome, email, null);
+Usuario c = new Usuario(id, nome, email);
 
 	System.out.println();
 System.out.println("╔════════════════════════════════════╗");
@@ -35,56 +39,50 @@ System.out.println("║ 9 - Sair                           ║");
 System.out.println("╚════════════════════════════════════╝");
 System.out.println();
 
+int opcao = 0;
+do{
+
 System.out.printf("Escolha um número: ");
-int opcao = sc.nextInt();
+ opcao = sc.nextInt();
 sc.nextLine();
 
 if(opcao == 1){
-	System.out.println("Qual o valor que gostaria de adicionar no saldo? ");
+	System.out.println("Qual o valor que gostaria de adicionar no saldo?");
 	double valor = sc.nextDouble();
-	c.getCarteira().setSaldo(c.getCarteira().getSaldo() + valor);
+	c.getCarteira().adicionarSaldo(valor);
+	System.out.println();
 }else if(opcao == 2){
-	System.out.println("Qual o valor que gostaria de retirar do saldo? ");
+	System.out.println("Qual o valor que gostaria de retirar do saldo?");
 	double valor = sc.nextDouble();
-	c.getCarteira().setSaldo(c.getCarteira().getSaldo() - valor);
+	c.getCarteira().descontarSaldo(valor);
+	System.out.println();
 }else if(opcao == 3){
-FormaPagamento formaEscolhida = FormaPagamento.NAO_CADASTRADO;
-boolean valido = false;
-while (!valido) {
-    System.out.print("Digite a forma de pagamento (ex: pix, cartao de credito): ");
-    String entrada = sc.nextLine().trim().toLowerCase();
-
-    for (FormaPagamento f : FormaPagamento.values()) {
-        if (f.getDescricao().equalsIgnoreCase(entrada)) {
-            formaEscolhida = f;
-            valido = true;
-            break;
-        }
-    }
-
-    if (!valido) {
-        System.out.println("Forma de pagamento inválida. Tente novamente.");
-    }
-}
-System.out.println("Você escolheu: " + formaEscolhida.getDescricao());
+System.out.print("Digite a forma de pagamento (ex: pix, cartao de credito): ");
+String entrada = sc.nextLine();
+System.out.println(c.escolherFormaPagamento(entrada));
+System.out.println();
 }else if(opcao == 4){
-	
+	System.out.println(loja.mostrarCatalogo());
+	System.out.println();
 }else if(opcao == 5){
-	
+	System.out.println(c.verCarrinho());
+	System.out.println();
 }else if(opcao == 6){
-	
+	System.out.println(c.finalizarCompra());
+	System.out.println();
 }else if(opcao == 7){
-
+System.out.println(c.verCarrinho());
+System.out.println();
 }else if(opcao == 8){
 	System.out.println(c.toString());
+	System.out.println();
 }else if(opcao == 9){
 	
 }else{
 	System.out.println("Escolha invalida. Tente outra vez");
+	opcao = sc.nextInt();
 }
 
-
-
-
-		    }
+  }while(opcao!=0);
+}
 }

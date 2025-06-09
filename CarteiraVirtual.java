@@ -14,9 +14,11 @@ public class CarteiraVirtual {
 
     
     public void descontarSaldo(double valor) {
-        saldo = this.saldo + valor;
+        if(valor > saldo){
+            saldo = 0.0;
+        }
+        saldo = this.saldo - valor;
     }
-
 
     public Double getSaldo() {
         return saldo;
