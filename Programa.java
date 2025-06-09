@@ -22,7 +22,7 @@ public class Programa
 		System.out.println("Qual o seu email?");
 		String email = sc.nextLine();
 
-Usuario c = new Usuario(id, nome, email);
+Usuario usuario = new Usuario(id, nome, email);
 
 	System.out.println();
 System.out.println("╔════════════════════════════════════╗");
@@ -50,17 +50,17 @@ sc.nextLine();
 if(opcao == 1){
 	System.out.println("Qual o valor que gostaria de adicionar no saldo?");
 	double valor = sc.nextDouble();
-	c.getCarteira().adicionarSaldo(valor);
+	usuario.getCarteira().adicionarSaldo(valor);
 	System.out.println();
 }else if(opcao == 2){
 	System.out.println("Qual o valor que gostaria de retirar do saldo?");
 	double valor = sc.nextDouble();
-	c.getCarteira().descontarSaldo(valor);
+	usuario.getCarteira().descontarSaldo(valor);
 	System.out.println();
 }else if(opcao == 3){
 System.out.print("Digite a forma de pagamento (ex: pix, cartao de credito): ");
 String entrada = sc.nextLine();
-System.out.println(c.escolherFormaPagamento(entrada));
+System.out.println(usuario.escolherFormaPagamento(entrada));
 System.out.println();
 }else if(opcao == 4){
 	System.out.println(loja.mostrarCatalogo());
@@ -77,37 +77,37 @@ System.out.println();
 	System.out.print("Digite a quantidade de produtos: ");
 	int quantidade = sc.nextInt();
 
-	c.adicionarNoCarrinho(escolhido, quantidade);
+	usuario.adicionarNoCarrinho(escolhido, quantidade);
 
 	System.out.println();
 }else if(opcao == 5){
-	System.out.println(c.verCarrinho());
-	if(!c.getCarrinho().isEmpty()){
+	System.out.println(usuario.verCarrinho());
+	if(!usuario.getCarrinho().isEmpty()){
 	System.out.print("Escolha o número do produto: ");
     int escolha = sc.nextInt();
 
-    while (escolha < 1 || escolha > c.getCarrinho().size()) {
+    while (escolha < 1 || escolha > usuario.getCarrinho().size()) {
         System.out.println("Opção inválida. Tente novamente");
         escolha = sc.nextInt();
     }
 
-    ItemCarrinho escolhido = c.getCarrinho().get(escolha - 1);
+    ItemCarrinho escolhido = usuario.getCarrinho().get(escolha - 1);
 
 	System.out.print("Digite a quantidade de produtos: ");
 	int quantidade = sc.nextInt();
 
-	c.removerDoCarrinho(escolhido, quantidade);
+	usuario.removerDoCarrinho(escolhido, quantidade);
 	}
 
 	System.out.println();
 }else if(opcao == 6){
-	System.out.println(c.finalizarCompra());
+	System.out.println(usuario.finalizarCompra());
 	System.out.println();
 }else if(opcao == 7){
-System.out.println(c.verCarrinho());
+System.out.println(usuario.verCarrinho());
 System.out.println();
 }else if(opcao == 8){
-	System.out.println(c.toString());
+	System.out.println(usuario.toString());
 	System.out.println();
 }else if(opcao == 9){
 	System.out.println("Saindo....");
