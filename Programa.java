@@ -1,16 +1,18 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Programa {
+
     public static void main(String[] args) {
         ArrayList<Produtos> catalogo = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         Loja loja = new Loja();
 
-        catalogo = loja.getCatalogo();  
+        catalogo = loja.getCatalogo();
         // Pega a lista de produtos da loja. A Loja já tem um catálogo inicializado.
-        
+
         System.out.println();
         System.out.println("BEM VINDO A LOJA!!!");
 
@@ -19,7 +21,7 @@ public class Programa {
         String nome = sc.nextLine();
         System.out.println("Qual o seu ID?");
         int id = sc.nextInt();
-        sc.nextLine(); 
+        sc.nextLine();
         // Consumir o '\n' que fica após nextInt para não quebrar o próximo nextLine
 
         System.out.println("Qual o seu email?");
@@ -28,25 +30,24 @@ public class Programa {
         Usuario usuario = new Usuario(id, nome, email);
         // Cria um objeto Usuario com os dados informados
 
-        // Menu fixo exibido para o usuário
-        System.out.println();
-        System.out.println("╔════════════════════════════════════╗");
-        System.out.println("║             M E N U                ║");
-        System.out.println("╠════════════════════════════════════╣");
-        System.out.println("║ 1 - Adicionar saldo                ║");
-        System.out.println("║ 2 - Retirar saldo                  ║");
-        System.out.println("║ 3 - Adicionar forma de pagamento   ║");
-        System.out.println("║ 4 - Adicionar produtos ao carrinho ║");
-        System.out.println("║ 5 - Remover produtos do carrinho   ║");
-        System.out.println("║ 6 - Finalizar o pedido             ║");
-        System.out.println("║ 7 - Ver o carrinho de compras      ║");
-        System.out.println("║ 8 - Ver dados da conta             ║");
-        System.out.println("║ 9 - Sair                           ║");
-        System.out.println("╚════════════════════════════════════╝");
-        System.out.println();
-
         int opcao = 0;
         do {
+            // Menu fixo exibido para o usuário
+            System.out.println();
+            System.out.println("╔════════════════════════════════════╗");
+            System.out.println("║             M E N U                ║");
+            System.out.println("╠════════════════════════════════════╣");
+            System.out.println("║ 1 - Adicionar saldo                ║");
+            System.out.println("║ 2 - Retirar saldo                  ║");
+            System.out.println("║ 3 - Adicionar forma de pagamento   ║");
+            System.out.println("║ 4 - Adicionar produtos ao carrinho ║");
+            System.out.println("║ 5 - Remover produtos do carrinho   ║");
+            System.out.println("║ 6 - Finalizar o pedido             ║");
+            System.out.println("║ 7 - Ver o carrinho de compras      ║");
+            System.out.println("║ 8 - Ver dados da conta             ║");
+            System.out.println("║ 9 - Sair                           ║");
+            System.out.println("╚════════════════════════════════════╝");
+            System.out.println();
             System.out.printf("Escolha um número: ");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -71,17 +72,16 @@ public class Programa {
                 System.out.println();
                 // Adiciona uma forma de pagamento e exibe resultado
             } else if (opcao == 4) {
-                System.out.println(loja.mostrarCatalogo());
+                ArrayList<Produtos> catalogoOrdenado = loja.mostrarCatalogo(); // Puxa a lista do catalogo de acordo com ordenação
                 System.out.print("Escolha o número do produto: ");
                 int escolha = sc.nextInt();
 
-                // Valida se a escolha é válida
-                while (escolha < 1 || escolha > catalogo.size()) {
+                while (escolha < 1 || escolha > catalogoOrdenado.size()) { //Valida se o usuáro digitou valor válido
                     System.out.println("Opção inválida. Tente novamente");
                     escolha = sc.nextInt();
                 }
 
-                Produtos escolhido = catalogo.get(escolha - 1);
+                Produtos escolhido = catalogoOrdenado.get(escolha - 1); //Seleciona o produto
 
                 System.out.print("Digite a quantidade de produtos: ");
                 int quantidade = sc.nextInt();

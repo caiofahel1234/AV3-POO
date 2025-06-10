@@ -4,6 +4,7 @@ public class Pedido {
     private Usuario usuario; // Usuário que realizou o pedido
     private ArrayList<ItemCarrinho> carrinho_de_compras; // Lista de itens comprados
     private double precoTotal; // Valor total do pedido
+    
 
     // Construtor que recebe o usuário e o carrinho de compras, calcula o preço total
     public Pedido(Usuario usuario, ArrayList<ItemCarrinho> carrinho_de_compras) {

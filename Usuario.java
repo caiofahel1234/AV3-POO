@@ -118,7 +118,7 @@ public class Usuario {
         sb.append("Itens no carrinho: \n");
         // Percorre todos os itens do carrinho e formata a saída
         for(ItemCarrinho item : carrinho_de_compras){
-            sb.append(String.format("%d- %s, %d - R$ %.2f\n", 
+            sb.append(String.format("%d- %s, Quantidade: %d - Subtotal: R$ %.2f\n", 
                 contador, 
                 item.getProduto().getNome(), 
                 item.getQuantidade(), 

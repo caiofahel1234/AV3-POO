@@ -1,7 +1,10 @@
+
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class Loja {
+
     private ArrayList<Produtos> catalogo = new ArrayList<>();
 
     public Loja() {
@@ -15,20 +18,38 @@ public class Loja {
         catalogo.add(new Bebidas(4, "Vinho branco", "Vinho branco suave", 12.0, true));
     }
 
-    public String mostrarCatalogo() {
-        // Ordena o catálogo pelo preço em ordem crescente
-        catalogo.sort(Comparator.comparingDouble(Produtos::getPreco));
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append("Catalogos de produtos\n");
-        
-        int contador = 1;
-        for (Produtos produtos : catalogo) {
-            // Aqui, chama o toString() de cada produto para mostrar detalhes. 
-            sb.append(String.format("%d - ", contador)).append(produtos.toString()).append("\n");
-            contador++;
+    public ArrayList<Produtos> mostrarCatalogo() {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Produtos> listaOrdenada = new ArrayList<>(catalogo); // Cópia da lista original
+
+        int opcao = 0;
+
+        do {
+            System.out.println();
+            System.out.println("╠════════════════════════════════════╣");
+            System.out.println("║ 1 - Ordenação Crescente de Preço   ║");
+            System.out.println("║ 2 - Ordenação Decrescente de Preço ║");
+            System.out.println("╚════════════════════════════════════╝");
+            System.out.println();
+            System.out.printf("Escolha um número: ");
+
+            opcao = sc.nextInt();
+            sc.nextLine();
+        } while (opcao != 1 && opcao != 2);
+
+        if (opcao == 1) {
+            listaOrdenada.sort(Comparator.comparingDouble(Produtos::getPreco)); //Ordena em ordem crescente de preços
+        } else {
+            listaOrdenada.sort(Comparator.comparingDouble(Produtos::getPreco).reversed()); //Ordena em ordem decrescente de preços
         }
-        return sb.toString();
+
+        System.out.println("Catálogo de produtos:"); //Imprime o catalogo
+        int contador = 1;
+        for (Produtos produto : listaOrdenada) {
+            System.out.printf("%d - %s\n", contador++, produto.toString());
+        }
+
+        return listaOrdenada;
     }
 
     public ArrayList<Produtos> getCatalogo() {
